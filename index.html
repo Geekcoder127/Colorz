@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Colorz</title>
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+	<meta charset="utf-8">
+</head>
+
+<style>
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "Source Sans Pro";
+}
+h1 {
+	font-size: 15vh;
+	line-height: 80vh;
+	height: 80vh;
+	text-align: center;
+}
+p {
+	font-size: 3.5vh;
+	line-height: 5vh;
+	text-align: center;
+}
+h2 {
+	font-size: 5vh;
+	position: absolute;
+	right: 0;
+	top: 0;
+	line-height: 10vh;
+	padding: 0 2.5vh;
+}
+a {
+	color: blue;
+	text-decoration: none;
+}
+a:hover{
+	color: #0000bb;
+	text-decoration: underline;
+}
+</style>
+
+<body>
+	<h1 id='color'></h1>
+	<h2 id='score'>Score: 0</h2>
+	<p>Press Enter If Color of the Word is the Same as The Word, and Press Space if Not.</p><br>
+	<p>Created by <a target="_blank" href="http://github.com/geekcoder127">Geekcoder127</a></p>
+</body>
+
+<script>
+
+var colors = [
+	"red",
+	"yellow",
+	"blue",
+	"purple",
+	"green",
+	"gray",
+	"black",
+	"orange"
+];
+var colorHTML = document.getElementById("color");
+var scoreHTML = document.getElementById("score");
+var completed = 0;
+var correct = 0;
+var currentColors;
+next();
+function random(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function next(){
+	currentColors = [colors[random(0,colors.length-1)],colors[random(0,colors.length-1)]];
+	colorHTML.innerHTML = currentColors[0];
+	colorHTML.setAttribute("style","color: " + currentColors[1]);
+}
+function update(){
+	scoreHTML.innerHTML = "Score: " + correct + " / " + completed; 
+}
+document.onkeydown = function(e){
+	completed += 1;
+	var keycode = e.keyCode;
+	if(keycode == 13 && currentColors[0] == currentColors[1]){
+		correct += 1;
+	}
+	if(keycode == 32 && currentColors[0] != currentColors[1]){
+		correct += 1;
+	}
+	if(keycode == 32 || keycode == 13){
+		update();
+		next();
+	}
+}
+</script>
+
+</html>
